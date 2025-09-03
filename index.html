@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Blood Pressure Result Checker</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f2f2f2;
+            padding: 30px;
+        }
+        .container {
+            background: #fff;
+            padding: 25px;
+            max-width: 400px;
+            margin: auto;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+        input[type="number"] {
+            width: 100%;
+            padding: 10px;
+            margin-top: 8px;
+            margin-bottom: 16px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background-color: #007b7f;
+            color: white;
+            padding: 10px;
+            border: none;
+            width: 100%;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #005e5e;
+        }
+        #result {
+            margin-top: 20px;
+            font-weight: bold;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Blood Pressure Result Checker</h2>
+
+    <label>Systolic (Top Number):</label>
+    <input type="number" id="systolic" placeholder="e.g., 120">
+
+    <label>Diastolic (Bottom Number):</label>
+    <input type="number" id="diastolic" placeholder="e.g., 80">
+
+    <button onclick="checkBP()">Check Result</button>
+
+    <div id="result"></div>
+</div>
+
+<script>
+    function checkBP() {
+        const systolic = parseInt(document.getElementById("systolic").value);
+        const diastolic = parseInt(document.getElementById("diastolic").value);
+        let message = "";
+
+        if (isNaN(systolic) || isNaN(diastolic)) {
+            message = "Please enter both systolic and diastolic values.";
+        } else if (systolic < 90 || diastolic < 60) {
+            message = "Low Blood Pressure (Hypotension)";
+        } else if (systolic < 120 && diastolic < 80) {
+            message = "Normal Blood Pressure";
+        } else if (systolic >= 120 && systolic < 130 && diastolic < 80) {
+            message = "Elevated Blood Pressure";
+        } else if ((systolic >= 130 && systolic < 140) || (diastolic >= 80 && diastolic < 90)) {
+            message = "High Blood Pressure (Hypertension Stage 1)";
+        } else if ((systolic >= 140 && systolic < 180) || (diastolic >= 90 && diastolic < 120)) {
+            message = "High Blood Pressure (Hypertension Stage 2)";
+        } else if (systolic >= 180 || diastolic >= 120) {
+            message = "Hypertensive Crisis - Seek Emergency Care!";
+        } else {
+            message = "Unable to determine result. Please check values.";
+        }
+
+        document.getElementById("result").innerHTML = message;
+    }
+</script>
+
+</body>
+</html>
